@@ -21,11 +21,10 @@ Class UsersController extends Controller{
           $data=$request->all();
           $q=trim($data['qsearch']);
           
-          if(Cache::has($q)){
-            $response = Cache::get($q);
-          }else{
-            $apikey='308c9e4a50ee755c9f19aa80c7e3f927';
-            $url = "https://gnews.io/api/v4/search?q=$q&token=$apikey&lang=en&country=us&max=50";
+          
+            $apikey=env('GNEWS_API_KEY');
+            $gnewsURL=env('GNEWS_URL');
+            $url = $gnewsURL."/search?q=$q&token=$apikey&lang=en&country=us&max=50";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -37,9 +36,7 @@ Class UsersController extends Controller{
             } 
             curl_close($ch);
             
-            Cache::put($q,$response,600);
-
-          }
+            
           return view('users.search_data',['response'=>$response]);
      
       }catch (\Exception $e){
@@ -59,8 +56,9 @@ Class UsersController extends Controller{
           if(Cache::has($q)){
             $response = Cache::get($q);
           }else{
-            $apikey='308c9e4a50ee755c9f19aa80c7e3f927';
-            $url = "https://gnews.io/api/v4/search?q=$q&token=$apikey&lang=en&country=us&max=50";
+            $apikey=env('GNEWS_API_KEY');
+            $gnewsURL=env('GNEWS_URL');
+            $url = $gnewsURL."/search?q=$q&token=$apikey&lang=en&country=us&max=50";
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
