@@ -15,7 +15,7 @@
             @csrf
           <div class="search">
             <i class="fa fa-search"></i>
-            <input type="text" name="qsearch" class="form-control" placeholder="Google, Apple, Facebook, Amazon, ...">
+            <input type="text" name="qsearch" class="form-control" placeholder="Google, Facebook, ...">
             <button type="button" class="btn btn-primary search-btn">
               Search
             </button>
@@ -31,6 +31,12 @@
 
 <script type="text/javascript">
   $(function(){
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
     $('button.search-btn').on('click',function(){
       var qsearch=$('input[name=qsearch]').val().trim();
       if(qsearch!=''){
@@ -38,7 +44,7 @@
         t = $(".data-response");
        $.ajax({
             type: "POST",
-            url: '{{route("search")}}',
+            url: '{{route("search-desktop-gnews")}}',
             data: $('#qsearch-form').serialize(),
             dataType:'HTML'
         }).done(function(e) {

@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/json-search-data', [UsersController::class, 'jsonSearchData'])->name('json-search-data');
+Route::post('/get-gnews', [UsersController::class, 'getGnewsData'])->name('get-gnews');

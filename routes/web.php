@@ -17,5 +17,5 @@ use App\Http\Controllers\UsersController;
 
 
 Route::get('/', [UsersController::class, 'index']);
-Route::post('/search', [UsersController::class, 'search'])->name('search');
+Route::post('/search-desktop-gnews', [UsersController::class, 'desktopGNewsData'])->name('search-desktop-gnews');
 
